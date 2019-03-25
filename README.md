@@ -29,4 +29,4 @@ Congratulations! Your answer is correct.
 ```
 
 ### Exercise 1.3
-![alt text](imgs/exercise1_3.pdf "exercise1_3")
+![alt text](imgs/exercise1_3.png "exercise1_3")
