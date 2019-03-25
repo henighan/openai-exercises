@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.com/henighan/openai-exercises.svg?branch=master)](https://travis-ci.com/henighan/openai-exercises)
 
 ## Results
-
 ### Exercise 1.1
 ```bash
 ==================================================
