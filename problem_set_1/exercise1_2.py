@@ -1,7 +1,3 @@
-import tensorflow as tf
-import numpy as np
-from spinup.exercises.problem_set_1 import exercise1_1
-
 """
 
 Exercise 1.2: PPO Gaussian Policy
@@ -12,78 +8,12 @@ Log-likelihoods will be computed using your answer to Exercise 1.1,
 so make sure to complete that exercise before beginning this one.
 
 """
+import tensorflow as tf
+import numpy as np
+
+from problem_set_1.exercise1_2_helper import mlp_gaussian_policy
 
 EPS = 1e-8
-
-def mlp(x, hidden_sizes=(32,), activation=tf.tanh, output_activation=None):
-    """
-    Builds a multi-layer perceptron in Tensorflow.
-
-    Args:
-        x: Input tensor.
-
-        hidden_sizes: Tuple, list, or other iterable giving the number of units
-            for each hidden layer of the MLP.
-
-        activation: Activation function for all layers except last.
-
-        output_activation: Activation function for last layer.
-
-    Returns:
-        A TF symbol for the output of an MLP that takes x as an input.
-
-    """
-    #######################
-    #                     #
-    #   YOUR CODE HERE    #
-    #                     #
-    #######################
-    pass
-
-def mlp_gaussian_policy(x, a, hidden_sizes, activation, output_activation, action_space):
-    """
-    Builds symbols to sample actions and compute log-probs of actions.
-
-    Special instructions: Make log_std a tf variable with the same shape as
-    the action vector, independent of x, initialized to [-0.5, -0.5, ..., -0.5].
-
-    Args:
-        x: Input tensor of states. Shape [batch, obs_dim].
-
-        a: Input tensor of actions. Shape [batch, act_dim].
-
-        hidden_sizes: Sizes of hidden layers for action network MLP.
-
-        activation: Activation function for all layers except last.
-
-        output_activation: Activation function for last layer (action layer).
-
-        action_space: A gym.spaces object describing the action space of the
-            environment this agent will interact with.
-
-    Returns:
-        pi: A symbol for sampling stochastic actions from a Gaussian 
-            distribution.
-
-        logp: A symbol for computing log-likelihoods of actions from a Gaussian 
-            distribution.
-
-        logp_pi: A symbol for computing log-likelihoods of actions in pi from a 
-            Gaussian distribution.
-
-    """
-    #######################
-    #                     #
-    #   YOUR CODE HERE    #
-    #                     #
-    #######################
-    # mu = 
-    # log_std = 
-    # pi = 
-
-    logp = exercise1_1.gaussian_likelihood(a, mu, log_std)
-    logp_pi = exercise1_1.gaussian_likelihood(pi, mu, log_std)
-    return pi, logp, logp_pi
 
 
 if __name__ == '__main__':

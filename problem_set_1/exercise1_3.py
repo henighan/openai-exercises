@@ -2,10 +2,15 @@ import numpy as np
 import tensorflow as tf
 import gym
 import time
+
 from spinup.algos.td3 import core
 from spinup.algos.td3.td3 import td3 as true_td3
 from spinup.algos.td3.core import get_vars
 from spinup.utils.logx import EpochLogger
+from problem_set_1.exercise1_3_helper import (get_clipped_noise,
+                                              get_pi_noise_clipped,
+                                              get_q_target)
+
 
 """
 
@@ -169,41 +174,18 @@ def td3(env_fn, actor_critic=core.mlp_actor_critic, ac_kwargs=dict(), seed=0,
 
     # Main outputs from computation graph
     with tf.variable_scope('main'):
-        #######################
-        #                     #
-        #   YOUR CODE HERE    #
-        #                     #
-        #######################
-        # pi, q1, q2, q1_pi = 
-        pass
-    
+        pi, q1, q2, q1_pi = actor_critic(x_ph, a_ph, **ac_kwargs)
     # Target policy network
     with tf.variable_scope('target'):
-        #######################
-        #                     #
-        #   YOUR CODE HERE    #
-        #                     #
-        #######################
-        # pi_targ =
-        pass
-    
+        pi_targ, _, _, _ = actor_critic(x2_ph, a_ph, **ac_kwargs)
     # Target Q networks
     with tf.variable_scope('target', reuse=True):
-
         # Target policy smoothing, by adding clipped noise to target actions
-        #######################
-        #                     #
-        #   YOUR CODE HERE    #
-        #                     #
-        #######################
-
+        pi_noise_targ = get_pi_noise_clipped(
+            pi, noise_scale=target_noise, noise_clip=noise_clip,
+            act_limit=act_limit)
         # Target Q-values, using action from smoothed target policy
-        #######################
-        #                     #
-        #   YOUR CODE HERE    #
-        #                     #
-        #######################
-        pass
+        _, q1_targ, q2_targ, _ = actor_critic(x2_ph, pi_noise_targ, **ac_kwargs)
 
     # Experience buffer
     replay_buffer = ReplayBuffer(obs_dim=obs_dim, act_dim=act_dim, size=replay_size)
@@ -213,22 +195,12 @@ def td3(env_fn, actor_critic=core.mlp_actor_critic, ac_kwargs=dict(), seed=0,
     print('\nNumber of parameters: \t pi: %d, \t q1: %d, \t q2: %d, \t total: %d\n'%var_counts)
 
     # Bellman backup for Q functions, using Clipped Double-Q targets
-    #######################
-    #                     #
-    #   YOUR CODE HERE    #
-    #                     #
-    #######################
-
+    q_targ = get_q_target(q1_targ, q2_targ, r_ph, d=d_ph, gamma=0.99)
     # TD3 losses
-    #######################
-    #                     #
-    #   YOUR CODE HERE    #
-    #                     #
-    #######################
-    # pi_loss = 
-    # q1_loss = 
-    # q2_loss = 
-    # q_loss = 
+    pi_loss = -tf.reduce_mean(q1_pi)
+    q1_loss = tf.losses.mean_squared_error(q_targ, q1)
+    q2_loss = tf.losses.mean_squared_error(q_targ, q2)
+    q_loss = q1_loss + q2_loss
 
     #=========================================================================#
     #                                                                         #
