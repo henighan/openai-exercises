@@ -1,6 +1,6 @@
 # OpenAI RL Exercises
 
-[![Build Status](https://travis-ci.com/henighan/openai-exercises.svg?branch=master)](https://travis-ci.com/henighan/openai-exercises)
+[![Build Status](https://api.travis-ci.com/henighan/openai-exercises.svg?token=GtbYrG9pVQy4NbuzqakZ&branch=master)](https://travis-ci.com/henighan/openai-exercises)
 
 ## Results
 ### Exercise 1.1
